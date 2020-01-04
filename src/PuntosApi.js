@@ -15,7 +15,7 @@ class PuntosApi {
 
 
         return fetch(request).then(response => {
-            return response.json();
+            return response;
         });
     }
 }

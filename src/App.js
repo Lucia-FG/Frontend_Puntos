@@ -19,7 +19,6 @@ function App() {
             </Col>
           </Row>
           <Row>
-            <h1>Seguro de automóvil</h1>
           </Row>
           <Row>
             <Col>

@@ -3,15 +3,13 @@ import React from 'react';
 //import NewConductor from './NewConductor.js'
 //import EditConductor from './EditConductor.js';
 //import Alert from './Alert.js';
-import PuntosApi from './PuntosApi'
+//import PuntosApi from './PuntosApi'
 
 class Conductores extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            errorInfo: null,
             conductores: [],
-            isEditing: {}
         };
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
@@ -20,28 +18,49 @@ class Conductores extends React.Component{
     }
 
     
-    componentDidMount() {
+  /*  componentDidMount() {
+        let res=PuntosApi.getAllPuntos();
+        alert(res.data)
         PuntosApi.getAllPuntos()
-            .then(result => this.setState({ 'conductores': result}))
-            
-    }
+            .then(r => {
+                let conductor=r.data.result
+                alert(conductor);
+                this.setState({ conductores: conductor});
+    });
+}*/
 
-    render() {
-        if(this.state.conductores==""){
-        return (
-            <p>error</p>
-        )
-        }else{
-            let items=this.state.conductores.map((item,index) =>
-                <li key={index}>
-                    {item.dni}
-                </li>                   
-                );
+componentDidMount() {
+    var url = "api/v1/puntos";
+   
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'x-api-key': "eiWee8ep9due4deeshoa8Peichai8Eih"}
+    })
+    .then(response => { return response.json();})
+    .then(responseData => {console.log(responseData); return responseData;})
+    .then(data => {this.setState({conductores: JSON.stringify(data)});})
 
-        return <div><ul>{items}</ul></div>
-                }
-            }
-        
+    .catch(err => {
+        console.log("fetch error" + err);
+    });
+}
+
+
+render() {
+    return (
+
+      <div className="App">
+        <header>
+          <h2>Listado de puntos(/GET) </h2>
+        </header>
+        <div id='renderhere'>         
+          {this.state.conductores} <br /><br />
+        </div>
+      </div>
+    );
+  }
+
     
     
     handleEdit(conductor){
