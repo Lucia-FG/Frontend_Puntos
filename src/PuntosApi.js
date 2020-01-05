@@ -15,9 +15,68 @@ class PuntosApi {
 
 
         return fetch(request).then(response => {
-            return response;
+            return response.json();
         });
     }
-}
+
+    static postPuntos(dni) {
+        // const headers = this.requestHeaders();
+         const request = new Request(PuntosApi.API_BASE_URL + "/puntos",
+          {
+             method: 'POST',
+             headers: {
+                'Content-Type': 'application/json',
+                'x-api-key':'eiWee8ep9due4deeshoa8Peichai8Eih'},
+            body: JSON.stringify({
+                dni: dni,
+                }),
+            })          
+
+ 
+         return fetch(request).then(response => {
+             return "Añadido correctamente";
+         });
+     }
+
+    static deletePuntos(dni) {
+        // const headers = this.requestHeaders();
+         const request = new Request(PuntosApi.API_BASE_URL + "/puntos/"+dni,
+          {
+             method: 'DELETE',
+             headers: {
+                'Content-Type': 'application/json',
+                'x-api-key':'eiWee8ep9due4deeshoa8Peichai8Eih'},
+            body: JSON.stringify({
+                dni: dni,
+                }),
+            })          
+
+ 
+         return fetch(request).then(response => {
+             return "Eliminado correctamente";
+         });
+     }
+
+     static putPuntos(dni) {
+        // const headers = this.requestHeaders();
+         const request = new Request(PuntosApi.API_BASE_URL + "/puntos/"+dni,
+          {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key':'eiWee8ep9due4deeshoa8Peichai8Eih'},
+            body: JSON.stringify({
+                dni: dni,
+                }),
+            })          
+
+ 
+         return fetch(request).then(response => {
+             return "Modificado correctamente";
+         });
+     }
+    
+    }
+
 
 export default PuntosApi;

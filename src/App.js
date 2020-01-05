@@ -6,18 +6,26 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+//import PuntosApi from './PuntosApi'
 
 function App() {
   return (
     <div>
       
       <Container>
-        <Row>
+      
+      <Row>
+        <br/>
             <Col sm={10}> </Col>
-            <Col>
               <Button href="#" variant="outline-danger" size="lg">Logout</Button>
-            </Col>
+              <br/>
           </Row>
+        
+      <div align='center'>
+      <h1 >Puntos DGT</h1></div>
+      <br/>
+      
+
           <Row>
           </Row>
           <Row>
