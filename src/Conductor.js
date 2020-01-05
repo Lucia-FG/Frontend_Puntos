@@ -19,7 +19,7 @@ function Conductor(props){
             
         </td>
         <td align="center">
-            <button type="button" class="btn btn-info" >Modificar</button>
+            <button type="button" class="btn btn-info" onClick={() => props.onEdit(props.conductor)} >Modificar</button>
         </td>
 
     </tr>

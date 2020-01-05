@@ -23,8 +23,8 @@ class PuntosApi {
         // const headers = this.requestHeaders();
          const request = new Request(PuntosApi.API_BASE_URL + "/puntos",
           {
-             method: 'POST',
-             headers: {
+            method: 'POST',
+            headers: {
                 'Content-Type': 'application/json',
                 'x-api-key':'eiWee8ep9due4deeshoa8Peichai8Eih'},
             body: JSON.stringify({
@@ -57,7 +57,7 @@ class PuntosApi {
          });
      }
 
-     static putPuntos(dni) {
+     static putPuntos(dni,dni_nuevo) {
         // const headers = this.requestHeaders();
          const request = new Request(PuntosApi.API_BASE_URL + "/puntos/"+dni,
           {
@@ -66,7 +66,7 @@ class PuntosApi {
                 'Content-Type': 'application/json',
                 'x-api-key':'eiWee8ep9due4deeshoa8Peichai8Eih'},
             body: JSON.stringify({
-                dni: dni,
+                dni: dni_nuevo,
                 }),
             })          
 

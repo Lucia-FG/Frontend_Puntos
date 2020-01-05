@@ -2,7 +2,7 @@ import React from 'react';
 import PuntosApi from './PuntosApi';
 import Conductor from './Conductor.js';
 import NewConductor from './NewConductor.js'
-//import EditConductor from './EditConductor.js';
+import EditConductor from './EditConductor.js';
 import Alert from './Alert.js';
 
 class Conductores extends React.Component{
@@ -16,6 +16,7 @@ class Conductores extends React.Component{
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleCloseError = this.handleCloseError.bind(this);
+
     }
 
     componentDidMount() {
@@ -42,7 +43,6 @@ class Conductores extends React.Component{
             <Alert message={this.state.errorInfo} onClose={this.handleCloseError} />
 
             <table id="dtBasicExample" className="table-striped table-bordered table-sm" cellspacing="0" width="100%">
-            <NewConductor onAddConductor={this.addConductor}/>
 
             <thead>
                 <tr>
@@ -56,12 +56,20 @@ class Conductores extends React.Component{
                 </tr>
             </thead>
             <tbody>
+            <NewConductor onAddConductor={this.addConductor}/>
 
             {this.state.conductores.map((conductor) => 
-                
-                <Conductor key={conductor.dni} conductor={conductor} 
-                onDelete={this.handleDelete}/>
-
+                ! this.state.isEditing[conductor.dni] ?
+                <Conductor key={conductor.dni} conductor={conductor}
+                onEdit={this.handleEdit} 
+                onDelete={this.handleDelete}
+                />
+                :
+                <EditConductor key={conductor.dni} conductor={this.state.isEditing[conductor.dni]} 
+                    onCancel={this.handleCancel.bind(this, conductor.dni)}
+                    onChange={this.handleChange.bind(this, conductor.dni)}
+                    onSave={this.handleSave.bind(this, conductor.dni)}/>
+                             
                 
             )}
             </tbody>
@@ -77,20 +85,6 @@ class Conductores extends React.Component{
             isEditing: {...prevState.isEditing, [conductor.dni]: conductor}
         }));
 
-        PuntosApi.putPuntos(conductor.dni)
-            .then(
-                (data) => {
-                    this.setState(prevState => ({
-                        conductores: prevState.conductores.filter((c) => c.dni !== conductor.dni)
-                    }))
-                   
-                },
-                (error) => {
-                    this.setState({
-                        errorInfo: "No se ha podido eliminar el registro"
-                    })
-                }
-            )
     }
     
 
@@ -122,6 +116,54 @@ class Conductores extends React.Component{
         
     }
 
-}
+    handleCancel(dni, conductor) {
+        this.setState(prevState => {
+            const isEditing = Object.assign({}, prevState.isEditing);
+            delete isEditing[dni];
+            return {
+                isEditing: isEditing
+            }
+        })
+    }
 
+    handleChange(dni, conductor) {
+        this.setState(prevState => ({
+            isEditing: {...prevState.isEditing, [dni]: conductor}
+        }))
+    }
+
+    handleSave(dni, conductor) {    
+        
+        PuntosApi.putPuntos(dni,conductor.dni)
+        .then(
+            (data) => {
+                this.setState(prevState => {
+                    const isEditing = Object.assign({}, prevState.isEditing);
+                    delete isEditing[dni];
+        
+                    if (dni != conductor.dni) {
+                        const conductores = prevState.conductores;
+                        alert(conductores);
+                        const pos = conductores.findIndex(c => c.dni === dni);
+                        conductores[pos].dni=conductor.dni;
+                        
+                        return {
+                            //conductores: [...conductores.slice(pos), Object.assign({}, conductor), ...conductores.slice(pos+1)],
+                            conductores:conductores,
+                            isEditing: isEditing
+                        }
+                    }
+        
+                    return {
+                        errorInfo: "No se puede editar el dni ",
+                    }
+        
+                });
+        
+            }
+        )
+       
+        
+}
+}
 export default Conductores;
