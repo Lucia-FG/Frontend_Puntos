@@ -4,14 +4,16 @@ import React from 'react';
 
 function Conductor(props){
 
-    
+  
+
 
     return(
-    <tr>
+    <tr align="center">
         <td>{props.conductor.dni}</td>
         <td>{props.conductor.puntos_actuales}</td>
         <td>{props.conductor.puntos_perdidos}</td>
         <td>{props.conductor.puntos_recuperados}</td>
+        <td>{props.conductor.date}</td>
 
 
         <td align="center">

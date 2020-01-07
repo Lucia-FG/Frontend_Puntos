@@ -16,6 +16,8 @@ class Conductores extends React.Component{
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleCloseError = this.handleCloseError.bind(this);
+        this.addConductor = this.addConductor.bind(this);
+
 
     }
 
@@ -40,22 +42,24 @@ class Conductores extends React.Component{
       
         return(
             <div>
-            <Alert message={this.state.errorInfo} onClose={this.handleCloseError} />
+            <Alert color ="success" message={this.state.errorInfo} onClose={this.handleCloseError} />
 
             <table id="dtBasicExample" className="table-striped table-bordered table-sm" cellspacing="0" width="100%">
 
             <thead>
-                <tr>
+                <tr align="center">
                     <th>DNI</th>
                     <th>Puntos actuales</th>
                     <th>Puntos perdidos</th>
                     <th>Puntos recuperados</th>
+                    <th>Fecha creación</th>
                     <th></th>
                     <th></th>
 
                 </tr>
             </thead>
             <tbody>
+            
             <NewConductor onAddConductor={this.addConductor}/>
 
             {this.state.conductores.map((conductor) => 
@@ -77,6 +81,81 @@ class Conductores extends React.Component{
             </div>
 
         );
+    }
+
+comprobarDNI(dni) {
+        var numero
+        var letr
+        var letra
+        var expresion_regular_dni
+       
+        expresion_regular_dni = /^\d{8}[a-zA-Z]$/;
+       
+        if(expresion_regular_dni.test (dni) == true){
+           numero = dni.substr(0,dni.length-1);
+           letr = dni.substr(dni.length-1,1);
+           numero = numero % 23;
+           letra='TRWAGMYFPDXBNJZSQVHLCKET';
+           letra=letra.substring(numero,numero+1);
+          if (letra!=letr.toUpperCase()) {
+            return true;
+           }
+        }else{
+            
+           return false;
+         }
+      
+    
+}
+
+    addConductor(dni) {  
+
+        if(dni!==""){
+
+            if(!this.comprobarDNI(dni)){
+
+                this.setState({
+                    errorInfo:"Formato de DNI no válido"
+                })
+
+            }else if(this.comprobarDNI(dni)){
+
+                PuntosApi.postPuntos(dni)
+                .then(
+                    (data) => {
+    
+                        this.setState({
+                            errorInfo:"Registro añadido correctamente"
+                        })
+    
+                        function reload() {
+                            document.location.reload();
+                        }
+                        
+                        setTimeout(reload, 1000);     
+    
+                    },
+                    (error) => {
+                        this.setState({
+                            errorInfo: "Ha habido un problema con el servidor"
+                        })
+                    }
+                )
+            
+    
+                    return ({
+                        errorInfo: 'El conductor ya existe'
+                    });            
+                    
+                }
+
+            }else{
+
+            this.setState({
+                errorInfo:"El campo DNI no puede estar vacío"
+            })
+        }
+
     }
     
     handleEdit(conductor){
@@ -100,10 +179,15 @@ class Conductores extends React.Component{
             .then(
                 (data) => {
                     this.setState(prevState => ({
-                        conductores: prevState.conductores.filter((c) => c.dni !== conductor.dni)
+                        conductores: prevState.conductores.filter((c) => c.dni !== conductor.dni),
+                        errorInfo: "Registro eliminado correctamente"
+
                     }))
-                    alert("Eliminado correctamente")
-                   
+                    function reload() {
+                        document.location.reload();
+                      }
+                      
+                      setTimeout(reload, 1000);                   
                 },
                 (error) => {
                     this.setState({
@@ -115,6 +199,8 @@ class Conductores extends React.Component{
         
         
     }
+
+    
 
     handleCancel(dni, conductor) {
         this.setState(prevState => {
@@ -132,38 +218,55 @@ class Conductores extends React.Component{
         }))
     }
 
-    handleSave(dni, conductor) {    
+    handleSave(dni, conductor) {  
         
-        PuntosApi.putPuntos(dni,conductor.dni)
-        .then(
-            (data) => {
-                this.setState(prevState => {
-                    const isEditing = Object.assign({}, prevState.isEditing);
-                    delete isEditing[dni];
+        if(conductor.dni!==""){
+
+            if(!this.comprobarDNI(conductor.dni)){
+
+                this.setState({
+                    errorInfo:"Formato de DNI no válido"
+                })
+
+            }else if(this.comprobarDNI(conductor.dni)){
+         
         
-                    if (dni != conductor.dni) {
-                        const conductores = prevState.conductores;
-                        alert(conductores);
-                        const pos = conductores.findIndex(c => c.dni === dni);
-                        conductores[pos].dni=conductor.dni;
-                        
-                        return {
-                            //conductores: [...conductores.slice(pos), Object.assign({}, conductor), ...conductores.slice(pos+1)],
-                            conductores:conductores,
-                            isEditing: isEditing
-                        }
+                PuntosApi.putPuntos(dni,conductor.dni)
+                .then(
+                    (data) => {
+                        this.setState(prevState => {
+                            const isEditing = Object.assign({}, prevState.isEditing);
+                            delete isEditing[dni];
+                
+                            if (dni !== conductor.dni) {
+                                const conductores = prevState.conductores;
+                                const pos = conductores.findIndex(c => c.dni === dni);
+                                conductores[pos].dni=conductor.dni;
+                                
+                                return {
+                                    //conductores: [...conductores.slice(pos), Object.assign({}, conductor), ...conductores.slice(pos+1)],
+                                    conductores:conductores,
+                                    isEditing: isEditing,
+                                    errorInfo: "Registro modificado correctamente"
+
+                                }
+                            }
+                
+                            return {
+                                errorInfo: "No se puede editar el dni ",
+                            }
+                
+                        });
+                
                     }
-        
-                    return {
-                        errorInfo: "No se puede editar el dni ",
-                    }
-        
-                });
-        
+                )
             }
-        )
-       
-        
-}
+        }else{
+            this.setState({
+                errorInfo:"El campo DNI no puede estar vacío"
+            })
+
+        }
+    }
 }
 export default Conductores;

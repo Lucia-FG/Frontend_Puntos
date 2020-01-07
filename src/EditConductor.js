@@ -12,6 +12,8 @@ function EditConductor(props){
             <td>{props.conductor.puntos_actuales}</td>
             <td>{props.conductor.puntos_perdidos}</td>
             <td>{props.conductor.puntos_recuperados}</td>
+            <td>{props.conductor.date}</td>
+
            
             <td align="center">
                 <button className="btn btn-success" onClick={() => props.onSave(props.conductor)}>Guardar</button>

@@ -20,6 +20,7 @@ class PuntosApi {
     }
 
     static postPuntos(dni) {
+        alert(dni)
         // const headers = this.requestHeaders();
          const request = new Request(PuntosApi.API_BASE_URL + "/puntos",
           {
