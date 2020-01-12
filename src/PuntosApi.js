@@ -1,6 +1,6 @@
 
 class PuntosApi {
-    static API_BASE_URL = "/api/v1";
+    static API_BASE_URL = "https://cors-anywhere.herokuapp.com/https://api-puntos-dgt.herokuapp.com/api/v1";
 
     static requestHeaders() {
         return {}
@@ -10,7 +10,7 @@ class PuntosApi {
        // const headers = this.requestHeaders();
         const request = new Request(PuntosApi.API_BASE_URL + "/puntos", {
             method: 'GET',
-            headers: {'x-api-key':'eiWee8ep9due4deeshoa8Peichai8Eih'}
+            headers: {'x-api-key':'eiWee8ep9due4deeshoa8Peichai8Eih'},
         });
 
 
@@ -19,9 +19,26 @@ class PuntosApi {
         });
     }
 
+    static getPuntos(dni) {
+         const request = new Request(PuntosApi.API_BASE_URL + "/puntos/"+dni,
+          {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key':'eiWee8ep9due4deeshoa8Peichai8Eih'},
+            
+            
+            dataType: 'json'
+
+            
+             } )          
+
+         return fetch(request).then(response => {
+             return response.json();
+         });
+     }
+
     static postPuntos(dni) {
-        alert(dni)
-        // const headers = this.requestHeaders();
          const request = new Request(PuntosApi.API_BASE_URL + "/puntos",
           {
             method: 'POST',
@@ -35,12 +52,11 @@ class PuntosApi {
 
  
          return fetch(request).then(response => {
-             return "Añadido correctamente";
+             return response.json();
          });
      }
 
     static deletePuntos(dni) {
-        // const headers = this.requestHeaders();
          const request = new Request(PuntosApi.API_BASE_URL + "/puntos/"+dni,
           {
              method: 'DELETE',
@@ -59,7 +75,6 @@ class PuntosApi {
      }
 
      static putPuntos(dni,dni_nuevo) {
-        // const headers = this.requestHeaders();
          const request = new Request(PuntosApi.API_BASE_URL + "/puntos/"+dni,
           {
             method: 'PUT',

@@ -17,7 +17,6 @@ function App() {
       <Row>
         <br/>
             <Col sm={10}> </Col>
-              <Button href="#" variant="outline-danger" size="lg">Logout</Button>
               <br/>
           </Row>
         

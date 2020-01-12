@@ -17,6 +17,8 @@ class Conductores extends React.Component{
         this.handleDelete = this.handleDelete.bind(this);
         this.handleCloseError = this.handleCloseError.bind(this);
         this.addConductor = this.addConductor.bind(this);
+        this.fitrarConductor = this.filtrarConductor.bind(this);
+
 
 
     }
@@ -41,7 +43,7 @@ class Conductores extends React.Component{
     render() {
       
         return(
-            <div>
+            <div className="container">
             <Alert color ="success" message={this.state.errorInfo} onClose={this.handleCloseError} />
 
             <table id="dtBasicExample" className="table-striped table-bordered table-sm" cellspacing="0" width="100%">
@@ -60,7 +62,9 @@ class Conductores extends React.Component{
             </thead>
             <tbody>
             
-            <NewConductor onAddConductor={this.addConductor}/>
+            <NewConductor onAddConductor={this.addConductor}
+            onFiltrarConductor={this.filtrarConductor}
+            />
 
             {this.state.conductores.map((conductor) => 
                 ! this.state.isEditing[conductor.dni] ?
@@ -108,7 +112,7 @@ comprobarDNI(dni) {
     
 }
 
-    addConductor(dni) {  
+    addConductor(conductor,dni) {  
 
         if(dni!==""){
 
@@ -123,16 +127,22 @@ comprobarDNI(dni) {
                 PuntosApi.postPuntos(dni)
                 .then(
                     (data) => {
-    
-                        this.setState({
-                            errorInfo:"Registro añadido correctamente"
+
+                        conductor.dni=data["result"][0]["dni"]
+                        conductor.puntos_actuales=data["result"][0]["puntos_actuales"]
+                        conductor.puntos_perdidos=data["result"][0]["puntos_perdidos"]
+                        conductor.puntos_recuperados=data["result"][0]["puntos_recuperados"]                 
+                        conductor.date=data["result"][0]["date"]
+
+                        this.setState(prevState => {
+                            const conductores = prevState.conductores;
+                            return({
+                                conductores: [...prevState.conductores, conductor],
+                                errorInfo: "Registro añadido correctamente"
+
+                            });
                         })
-    
-                        function reload() {
-                            document.location.reload();
-                        }
-                        
-                        setTimeout(reload, 1000);     
+     
     
                     },
                     (error) => {
@@ -140,9 +150,7 @@ comprobarDNI(dni) {
                             errorInfo: "Ha habido un problema con el servidor"
                         })
                     }
-                )
-            
-    
+                )          
                     return ({
                         errorInfo: 'El conductor ya existe'
                     });            
@@ -157,6 +165,35 @@ comprobarDNI(dni) {
         }
 
     }
+
+    filtrarConductor(dni) {  
+
+        if(dni==""){
+                this.setState({
+                    errorInfo:"Formato de DNI no válido"
+                })
+
+            }else {
+                PuntosApi.getPuntos(dni)
+                .then(
+                    (data) => {
+    
+                        this.setState(prevState => ({
+                            conductores: prevState.conductores.filter((c) => c.dni === dni),
+    
+                        }))
+                    },
+                    (error) => {
+                        this.setState({
+                            errorInfo: "Ha habido un problema con el servidor"
+                        })
+                    }
+                )    
+                    
+                }
+
+        
+}
     
     handleEdit(conductor){
 
@@ -183,11 +220,7 @@ comprobarDNI(dni) {
                         errorInfo: "Registro eliminado correctamente"
 
                     }))
-                    function reload() {
-                        document.location.reload();
-                      }
-                      
-                      setTimeout(reload, 1000);                   
+                                     
                 },
                 (error) => {
                     this.setState({
@@ -244,7 +277,6 @@ comprobarDNI(dni) {
                                 conductores[pos].dni=conductor.dni;
                                 
                                 return {
-                                    //conductores: [...conductores.slice(pos), Object.assign({}, conductor), ...conductores.slice(pos+1)],
                                     conductores:conductores,
                                     isEditing: isEditing,
                                     errorInfo: "Registro modificado correctamente"

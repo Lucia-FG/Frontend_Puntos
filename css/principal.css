@@ -1,309 +1,131 @@
-@CHARSET "ISO-8859-1";
-
-#contenedor{
-	max-width: 962px;
-	margin: 0 auto;
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-	border-radius: 8px;
-	background-color: white;
-	padding: 5px 5px;
-}
-#contenido th{
-	text-align: left;
-}
-body {
-	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
-	font-size: 15px;
-	background-color: #f5f5f5;
-}
-#imgTop{
-	max-width: 100%;
-    height: auto;
-}
-input[type="button"]{
-	padding: 8px 16px;
-	background-color: #ad2624;
-    color: white;
-    border: 2px solid #ad2624;
-    box-shadow: 0px 3px 6px #999;
-	border-radius: 8px;
-}
-input[type="button"]:disabled{
-	background-color: #eca8a6;
-}
-input[type="submit"]{
-	padding: 8px 16px;
-	background-color: #ad2624;
-    color: white;
-    border: 2px solid #ad2624;
-    box-shadow: 0px 3px 6px #999;
-	border-radius: 8px;
-}
-
-.inputBuscar{
-    margin-left:-10%;
-    
-}
-
-/*MENU*/
-#menu {
-	width: auto;
-	margin: 0 auto;
-	background-color: #e6e6e6;
-	overflow: hidden;
-	border-radius: 10px;
-	box-shadow: 0px 3px 6px #999;
-}
-#menu ul{
+.App {
+	text-align: center;
+  }
+  
+  .App-logo {
+	height: 40vmin;
+  }
+  
+  .App-header {
+	background-color: #282c34;
+	min-height: 100vh;
 	display: flex;
-  	justify-content: space-between;
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-}
-#menu ul li{
-	float:left;
-	padding: 0;
-}
-#menu ul li a{
-	display: block;
-	font-size: 13px;
-	color: #747474;
-	padding: 15px 10px 15px 10px;
-	text-decoration: none;
-	border-bottom: 3px solid #d9ced2;
-	/*text-shadow: 2px 2px 1px silver;*/
-	font-weight: bold;
-	box-shadow: 2px 2px 10px 2px silver;
-	border-radius: 10px;
-}
-#menu ul li a:hover{
-	background-color: #ad2624;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
 	color: white;
-}
-#menu ul li ul{
-	position: absolute;
-	display:none;
-}
-#menu ul li:hover > ul{
-	display:block;
-}
-#menu ul li ul li{
-	background-color: #e6e6e6;
-	float:none;
-	border-radius: 10px;
-}
-
-/*PAGINA DE BUSQUEDA*/
-#busqueda a{
-	text-decoration: none;
-}
-#busqueda tr:nth-child(even){
-	background-color: #FFFFFF;
-}
-#busqueda tr td a.impar{
-	color: black;
-}
-#busqueda tr:nth-child(odd){
-	background-color: #e6e6e6;
-}
-#busqueda tr td a.par{
-	color: #747474;
-}
-#busqueda tr td a:hover{
-	font-weight: bold;
-	color: black;
-}
-#busqueda th{
-	text-align: left;
-}
-#resultadoRevista{
-	max-width: 962px;
-}
-#resultadoRevista th{
-	text-align: left;
-	color: black;
-}
-#resultadoRevista tr:nth-child(even){
-	background-color: #FFFFFF;
-	color: black;
-}
-#resultadoRevista tr:nth-child(odd){
-	background-color: #e6e6e6;
-	color: #747474;
-}
-
-
-label.error{
-	color: #ad2624;
-	font-weight: bold;
-}
-
-#contenido{
-	margin-top:20px;
-}
-
-/*FORMULARIOS*/
-.formulario legend{
-	font-weight: bold;
-	font-style:oblique;
-	font-size: 15px;
-	margin-bottom: 15px;
-	color: #ad2624;
-	
-}
-.formulario fieldset{
-	border-radius: 10px;
-	box-shadow: 0px 3px 6px #999;
-	margin: 5px 5px;
-}
-.formulario div{
-	margin: 0px 0px 20px 0px;
-}
-.formulario div label{
-	margin: 0 10px 0 0;
-	float: left;
-	width: 25%;
-	/*font-weight: bold;*/
-}
-.formulario div label.error{
-	float: inherit;
-}
-.formulario img{
-	max-width: 30px;
-	padding: 0px 0px 20px 0px;
-}
-
-.formulario .imagenMini{
-	max-width: 10px;
-	padding: 0px 0px 0px 10px;
-}
-.texto{
+  }
+  
+  .App-link {
+	color: #09d3ac;
+  }
+  
+  .overview {
+	height: 100%;
 	width: 100%;
-	padding: 0px 0px 20px 0px;
-	font-size: 13px;
-}
-.texto label{
+	border: none;
+	background-color: #fff;
+  }
+  
+  .poster {
 	width: 100%;
-	
-}
-
-.formulario span{
-	font-size: 11px;
-	color: orange;
+  }
+  
+  .datos_recomendacion_celda {
+	padding-left: 0.5em;
+  }
+  
+  .tituloRecomendacion {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	padding-top: 0.3em;
 	font-weight: bold;
-	margin-left: 8px;
-	
-}
-
-/*FOOTER*/
-#footer{
-	max-width: 500px;
+  }
+  
+  .resumenOverview{
+	font-size: small;
+	font-style: italic;
+	margin-top: -15px;
+	padding-left: 0.5em;
+	margin-bottom: 0.5em;
+  }
+  
+  .verMasOverview {
+	color: blue;
+	cursor: pointer;
+  }
+  
+  .generos {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+  }
+  
+  .tooltip {
 	position: relative;
-	margin: 0 auto;
-}
-#footer p{
-	text-align: center;
-}
-#topTabla{
-	float: right;
-}
-#topTabla img{
-	max-width:30px;
-}
-
-/* ESTADISTICAS */
-#tEstadisticas td{
-	padding-right: 10px;
-}
-
-#tEstadisticas tr:nth-child(odd){
-	background-color: #FFFFFF;
-	color: black;
-}
-#tEstadisticas tr:nth-child(even){
-	background-color: #e6e6e6;
-	color: #515151;
-}
-
-/*PAGINACIÓN*/
-.paging, .paging2{
-	overflow: auto;
-	text-align: center;
-	height: 57px;
-}
-
-.paging ul li a, .paging2 ul li a{
-	padding: 4px 12px;
-    line-height: 20px;
-    text-decoration: none;
-    background-color: #ffffff;
-    border: 1px solid #dddddd;
-    color: #ad2624;
-}
-
-.pagination{
 	display: inline-block;
-}
-
-.paging li.active a, .paging2 li.active a{
-	background-color: #f5f5f5;
-}
-
-.resultados{
-	margin: 0 auto;
-	table-layout: fixed;
-}
-
-.resultados th{
-	background-color: #ad2624;
-	color: white;
-}
-
-.resultados tr:nth-child(odd){
-	background-color: #FFFFFF;
-	color: black;
-}
-.resultados tr:nth-child(even){
-	background-color: #e6e6e6;
-	color: #515151;
-}
-
-.resultados td{
-	word-break: break-all;
-}
-
-.resultadosfijos{
-	width: 90px;
-}
-
-table[class^='tSisius']{
-	font-size: 10px;
-}
-
-.idSisius{
-	width: 100px;
-}
-
-.tSisius td:first-child{
-	word-break: normal;
-}
-
-.tSisius td:nth-child(5){
-	width: 90px;
-}
-
-/*ACORDEON*/
-#accordion{
-	font-size: 10px;
-    float: right;
-    width: 300px;
-    height: 150px;
-    position: relative;
-    top: -465px;
-    left: -50px;
-}
-
-.ui-accordion .ui-accordion-content{
-	height: 100px;
-}
+	border-bottom: 1px dotted black;
+  }
+  
+  .tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+  
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+  }
+  
+  .tooltip:hover .tooltiptext {
+	visibility: visible;
+  }
+  
+  #slider {
+	margin-top: 0.5em;
+  }
+  .tituloSlider {
+	margin-left: 0.5em;
+	  font-weight: bold;
+	  font-size: large;
+	  width: 100%;
+	  padding-left: 0.5em;
+	  color:gray;
+  }
+  
+  .boton_lista_negra {
+	position: absolute;
+  }
+  
+  hr.divider { 
+	margin: 0.1em;
+	border-width: 2px;
+  } 
+  
+  .tituloListaNoRecomendada{
+	background-color: lightgrey;
+	padding: 0.3em;
+	border-radius: 4px;
+  }
+  
+  .homeStyle{
+	max-width: 100%;
+  }
+  
+  .link-lista-no-recomendada{
+	margin-left: 1em;
+  }
+  
+  .whirligig{
+	justify-content: inherit !important;
+  }
+  
+  .whirligigCard{
+	width: 15em !important;
+  }

@@ -4,9 +4,6 @@ import React from 'react';
 
 function Conductor(props){
 
-  
-
-
     return(
     <tr align="center">
         <td>{props.conductor.dni}</td>

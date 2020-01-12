@@ -12,29 +12,27 @@ class NewConductor extends React.Component {
             errorInfo:null,
             dni: ''
         };
-        this.clickAdd = this.clickAdd.bind(this);
         this.clickFiltrar = this.clickFiltrar.bind(this);
 
 
     }
-
-    clickAdd() {
-
-        let dni = document.getElementById('dni').value;
-        this.props.onAddConductor(this.state,dni);
+    
+ 
+    /*changeConductor(event) {
+        const name = event.target.name;
+        const value = event.target.value;
         this.setState({
-            dni:''
+            [name]: value
         });
-        document.getElementById('dni').value=""
+    }*/
 
-    }
 
     clickFiltrar() {
 
         let dni = document.getElementById('dni').value;
-        this.props.onFiltrarConductor(dni);
+        this.props.onAddConductor(dni);
         this.setState({
-            dni: ''
+            dni: dni
         });
 
     }
@@ -48,10 +46,10 @@ class NewConductor extends React.Component {
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
 
 
 
-                <td align="center"><Button variant="success" onClick={this.clickAdd}>Añadir </Button></td>
                 <td align="center"><Button variant="info" onClick={this.clickFiltrar}>Filtrar </Button></td>
 
 
