@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import PuntosApi from './PuntosApi';
-//import Alert from './Alert.js';
+import Alert from './Alert.js';
 
 class NewConductor extends React.Component {
     constructor(props){
