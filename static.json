@@ -5,7 +5,7 @@
     },
     "proxies": {
       "/api/": {
-        "origin": "${API_URL}/api"
+        "origin": "${http://api-puntos-dgt.herokuapp.com}/api"
       }
     }
   }
