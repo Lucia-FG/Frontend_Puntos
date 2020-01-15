@@ -165,35 +165,6 @@ comprobarDNI(dni) {
         }
 
     }
-
-    /*filtrarConductor(dni) {  
-
-        if(dni==""){
-                this.setState({
-                    errorInfo:"Formato de DNI no válido"
-                })
-
-            }else {
-                PuntosApi.getPuntos(dni)
-                .then(
-                    (data) => {
-    
-                        this.setState(prevState => ({
-                            conductores: prevState.conductores.filter((c) => c.dni === dni),
-    
-                        }))
-                    },
-                    (error) => {
-                        this.setState({
-                            errorInfo: "Ha habido un problema con el servidor"
-                        })
-                    }
-                )    
-                    
-                }
-
-        
-}*/
     
     handleEdit(conductor){
 
