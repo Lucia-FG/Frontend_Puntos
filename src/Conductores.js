@@ -17,7 +17,7 @@ class Conductores extends React.Component{
         this.handleDelete = this.handleDelete.bind(this);
         this.handleCloseError = this.handleCloseError.bind(this);
         this.addConductor = this.addConductor.bind(this);
-        this.fitrarConductor = this.filtrarConductor.bind(this);
+       // this.fitrarConductor = this.filtrarConductor.bind(this);
 
 
 
@@ -166,7 +166,7 @@ comprobarDNI(dni) {
 
     }
 
-    filtrarConductor(dni) {  
+    /*filtrarConductor(dni) {  
 
         if(dni==""){
                 this.setState({
@@ -193,7 +193,7 @@ comprobarDNI(dni) {
                 }
 
         
-}
+}*/
     
     handleEdit(conductor){
 

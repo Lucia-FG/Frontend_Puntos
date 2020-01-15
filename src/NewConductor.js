@@ -3,8 +3,6 @@ import Button from 'react-bootstrap/Button';
 import PuntosApi from './PuntosApi';
 import Alert from './Alert.js';
 
-
-
 class NewConductor extends React.Component {
     constructor(props){
         super(props);
@@ -48,11 +46,9 @@ class NewConductor extends React.Component {
                 <td></td>
                 <td></td>
                 <td></td>
-
-
+                <td></td>
 
                 <td align="center"><Button variant="success" onClick={this.clickAdd}>Añadir </Button></td>
-                <td align="center"><Button variant="info" onClick={this.clickFiltrar}>Filtrar </Button></td>
 
 
             </tr>
