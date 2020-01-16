@@ -51,6 +51,7 @@ class Conductores extends React.Component{
             <thead>
                 <tr align="center">
                     <th>DNI</th>
+                    <th>Fecha nacimiento</th>
                     <th>Puntos actuales</th>
                     <th>Puntos perdidos</th>
                     <th>Puntos recuperados</th>
@@ -127,13 +128,12 @@ comprobarDNI(dni) {
                 PuntosApi.postPuntos(dni)
                 .then(
                     (data) => {
-
                         conductor.dni=data["result"][0]["dni"]
+                        conductor.birthday=data["result"][0]["birthday"]
                         conductor.puntos_actuales=data["result"][0]["puntos_actuales"]
                         conductor.puntos_perdidos=data["result"][0]["puntos_perdidos"]
                         conductor.puntos_recuperados=data["result"][0]["puntos_recuperados"]                 
                         conductor.date=data["result"][0]["date"]
-
                         this.setState(prevState => {
                             const conductores = prevState.conductores;
                             return({

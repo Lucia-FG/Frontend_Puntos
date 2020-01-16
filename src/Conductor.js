@@ -7,6 +7,7 @@ function Conductor(props){
     return(
     <tr align="center">
         <td>{props.conductor.dni}</td>
+        <td>{props.conductor.birthday}</td>
         <td>{props.conductor.puntos_actuales}</td>
         <td>{props.conductor.puntos_perdidos}</td>
         <td>{props.conductor.puntos_recuperados}</td>

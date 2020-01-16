@@ -47,6 +47,8 @@ class NewConductor extends React.Component {
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
+
 
                 <td align="center"><Button variant="success" onClick={this.clickAdd}>Añadir </Button></td>
 
